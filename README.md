@@ -2,6 +2,24 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
+## RUN
+
+To start a local development server, clone and rm nodemodules if exists:
+
+```bash
+git clone '-'
+
+//example 
+cd -
+charm . 
+rm -rf node_modules
+rm package-lock.json
+npm i 
+
+ng serve -o
+```
+
+
 ## Development server
 
 To start a local development server, run:
