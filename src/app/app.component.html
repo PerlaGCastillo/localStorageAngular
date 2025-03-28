@@ -1,0 +1,137 @@
+<div class="row">
+  @if(isNewUser == false){
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <div class="row">
+          <div class="col-6">
+            <h6>User List</h6>
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-success" (click)="changeView()">Add New User</button>
+          </div>
+        </div>
+      </div><!--card header-->
+      <div class="card-body">
+        <div class="row">
+           @for (item of userList; track $index) {
+             <div class="col-3">
+               <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">{{item.fName}} {{item.lName}}</h5>
+                  <h6 class="card-subtitle mb-2 text-body-secondary">{{ item.uName }}</h6>
+                  <p class="card-text">{{item.city}}, {{item.state}} {{item.zipCode}}</p>
+                  <a href="#" class="card-link text-success" (click)="onEdit(item)">Edit</a>
+                  <a class="card-link text-danger" (click)="onDelete(item.userId)">Delete</a>
+                </div>
+              </div>
+             </div>
+           }
+        </div>
+
+
+
+      </div><!--card body-->
+    </div> <!--card-->
+
+
+  </div> <!--col12-->
+  } @else {
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <div class="row">
+          <div class="col-6">
+            <h6>New User</h6>
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-success" (click)="changeView()">List View</button>
+          </div>
+        </div>
+      </div><!--card header-->
+      <div class="card-body">
+          <form class="row g-3 needs-validation" #formValue="ngForm">
+  <div class="col-md-4">
+    <label for="validationCustom01" class="form-label">First name</label>
+    <input type="text" [(ngModel)]="userObj.fName" #fname="ngModel" name="fName" minlength="4" class="form-control" id="validationCustom01" value="Mark" required>
+   @if(fname.touched){
+    <div class="text-danger">
+      @if(fname.errors?.['required']){
+        <span>This Is Required</span>
+      } @if(fname.errors?.['minlength']){
+        <span>Min 4 Char needed</span>
+      }
+    </div>
+
+   }
+  </div>
+  <div class="col-md-4">
+    <label for="validationCustom02" class="form-label">Last name</label>
+    <input type="text" [(ngModel)]="userObj.lName" name="lName" class="form-control" id="validationCustom02" value="Otto" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationCustomUsername" class="form-label">Username</label>
+    <div class="input-group has-validation">
+      <span class="input-group-text" id="inputGroupPrepend">&#64;</span>
+      <input type="text" [(ngModel)]="userObj.uName" name="uName" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+      <div class="invalid-feedback">
+        Please choose a username.
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">City</label>
+    <input type="text" [(ngModel)]="userObj.city" name="city" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Please provide a valid city.
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label for="validationCustom04" class="form-label">State</label>
+    <select class="form-select" [(ngModel)]="userObj.state" name="state" class="form-control" id="validationCustom04" required>
+      <option selected disabled value="">Choose State</option>
+      <option>Maharashtra</option>
+      <option>Goa</option>
+      <option>Punjab</option>
+    </select>
+    <div class="invalid-feedback">
+      Please select a valid state.
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label for="validationCustom05" class="form-label">Zip</label>
+    <input type="text" [(ngModel)]="userObj.zipCode" name="zipCode" class="form-control" id="validationCustom05" required>
+    <div class="invalid-feedback">
+      Please provide a valid zip.
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" [(ngModel)]="userObj.isAggree" name="isAggree" type="checkbox" value="" id="invalidCheck" required>
+      <label class="form-check-label" for="invalidCheck">
+        Agree to terms and conditions
+      </label>
+      <div class="invalid-feedback">
+        You must agree before submitting.
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    @if(userObj.userId == 0){
+          <button class="btn btn-primary" type="submit" [disabled]="formValue.invalid" (click)="onSave()">Save User</button>
+    } @else {
+          <button class="btn btn-warning" type="submit" (click)="onUpdate()">Update</button>
+    }
+  </div>
+</form>
+      </div><!--card body-->
+    </div> <!--card-->
+
+
+  </div> <!--col12-->
+}
+
+</div> <!--row-->
